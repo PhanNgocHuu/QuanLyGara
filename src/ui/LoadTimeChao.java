@@ -7,7 +7,9 @@ package ui;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
+import javax.swing.border.*;
+import java.awt.Graphics;
+
 
 /**
  *
@@ -25,17 +27,24 @@ public class LoadTimeChao extends javax.swing.JFrame {
         setLocationRelativeTo(this);
 
     }
+    
+    
+  
+
+
 
     private void runLoadingBar() {
         class Loading extends Thread {
 
             @Override
             public void run() {
+
                 for (int i = 0; i <= 100; i++) {
                     try {
-                        Thread.sleep(30);
+                        Thread.sleep(40);
                         lblLoadingValue1.setText(i + "%");
                         ProgressBar1.setValue(i);
+
                         if (i == 100) {
                             dispose();
                             new Login().setVisible(true);
@@ -51,42 +60,6 @@ public class LoadTimeChao extends javax.swing.JFrame {
         l.start();
     }
 
-//    
-//    private void runLoadingBar() {
-//    class Loading extends Thread {
-//        @Override
-//        public void run() {
-//            for (int i = 0; i <= 100; i++) {
-//                final int progress = i;
-//                try {
-//                    Thread.sleep(20);
-//                    SwingUtilities.invokeLater(new Runnable() {
-//                        public void run() {
-//                            lblLoadingValue1.setText(progress + "%");
-//                            ProgressBar1.setValue(progress);
-//                            if (progress < 50) {
-//                                ProgressBar1.setForeground(new Color(0, 255, 34)); // Màu cam nhạt
-//                            } else if (progress < 75) {
-//                                ProgressBar1.setForeground(new Color(255, 175, 75)); // Màu cam đậm hơn
-//                            } else {
-//                                ProgressBar1.setForeground(new Color(255, 135, 0)); // Màu cam sẫm
-//                            }
-//                        }
-//                    });
-//                    if (progress == 100) {
-//                        dispose();
-//                        new Login().setVisible(true);
-//                    }
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(LoadTimeChao.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        }
-//    }
-//    Loading l = new Loading();
-//    l.start();
-//}
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,16 +70,23 @@ public class LoadTimeChao extends javax.swing.JFrame {
     private void initComponents() {
 
         lblLoadingValue = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
         ProgressBar1 = new javax.swing.JProgressBar();
         lblLoading1 = new javax.swing.JLabel();
         lblLoadingValue1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
 
         lblLoadingValue.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         lblLoadingValue.setForeground(new java.awt.Color(255, 153, 51));
         lblLoadingValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLoadingValue.setText("       0%");
+
+        jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hello");
@@ -115,9 +95,9 @@ public class LoadTimeChao extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        ProgressBar1.setBackground(new java.awt.Color(255, 255, 255));
+        ProgressBar1.setBackground(new java.awt.Color(0, 0, 0));
         ProgressBar1.setForeground(new java.awt.Color(255, 255, 255));
-        ProgressBar1.setBorder(null);
+        ProgressBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ProgressBar1.setBorderPainted(false);
         ProgressBar1.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -129,44 +109,116 @@ public class LoadTimeChao extends javax.swing.JFrame {
             }
         });
 
+        lblLoading1.setBackground(new java.awt.Color(102, 102, 102));
         lblLoading1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        lblLoading1.setText(" Loading...");
+        lblLoading1.setForeground(new java.awt.Color(102, 102, 102));
+        lblLoading1.setText("Loading...");
 
         lblLoadingValue1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblLoadingValue1.setForeground(new java.awt.Color(102, 102, 102));
         lblLoadingValue1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLoadingValue1.setText("0%");
 
         jLabel4.setBackground(new java.awt.Color(102, 102, 102));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 65)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 204, 102));
-        jLabel4.setText("VAN NANG");
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setText("Hello");
+
+        jPanel2.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel2.setPreferredSize(new java.awt.Dimension(9, 54));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel4.setBackground(new java.awt.Color(255, 204, 102));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        jPanel6.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel6.setPreferredSize(new java.awt.Dimension(3, 54));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel7.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel7.setPreferredSize(new java.awt.Dimension(628, 4));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 628, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblLoading1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLoadingValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(ProgressBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(132, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(127, 127, 127))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(lblLoading1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblLoadingValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(ProgressBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(113, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLoading1)
                     .addComponent(lblLoadingValue1))
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,6 +280,13 @@ public class LoadTimeChao extends javax.swing.JFrame {
     private javax.swing.JProgressBar ProgressBar1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblLoading1;
     private javax.swing.JLabel lblLoadingValue;
     private javax.swing.JLabel lblLoadingValue1;

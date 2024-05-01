@@ -364,41 +364,36 @@ public class Login extends javax.swing.JFrame {
     public void sukien() {
         cmdLoginn.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+             public void actionPerformed(ActionEvent e) {
                 try {
                     String url = "jdbc:sqlserver://PHAN_NGOC_HUU\\SQLEXPRESS:1433;"
-                            + "databaseName = DUAN1new;"
+                            + "databaseName = Duan1New;"
                             + "encrypt = false;";
                     Connection conn = DriverManager.getConnection(url, "sa", "123");
                     PreparedStatement ps1 = conn.prepareStatement("select * from heThong where username=? and password =?");
                     //truyền tham số
-                    ps1.setString(1, txtUser1.getText());
-                    ps1.setString(2, txtPassword.getText());
+                    ps1.setString(1,txtUser1.getText());
+                    ps1.setString(2,txtPassword.getText());
                     ResultSet rs = ps1.executeQuery();
-
+                    
                     //nếu đúng username và password
-                    if (rs.next() == true) {
+                    if(rs.next()==true){
                         //duyệt role
-                        if (rs.getString("role").equalsIgnoreCase("0")) {
-
+                        if(rs.getString("role").equalsIgnoreCase("1")){
+                            
+//                            QL1 ql = new QL1();
                             JOptionPane.showMessageDialog(null, "Đăng Nhập Thành Công");
-                            dispose();
-                            NhanVien nv = new NhanVien();
-
-                            nv.setVisible(true);
-
-                        } else {
-
+//                            ql.setVisible(true);
+                            
+                        }else {  
+//                            NV nv = new NV();
                             JOptionPane.showMessageDialog(null, "Đăng Nhập Thành Công");
-                            dispose();
-                            QuanLy ql = new QuanLy(null, true);
-                            ql.setTenTaiKhoan(txtUser1.getText());
-
-                            ql.setVisible(true);
-
+//                            nv.setVisible(true);
+                          
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Đăng Nhập Thất Bại");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"Đăng Nhập Thất Bại");
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
