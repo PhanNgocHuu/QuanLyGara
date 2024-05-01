@@ -4,6 +4,7 @@
  */
 package ui;
 
+import dao.UsersDao;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import model.Users;
 import utils.MsgBox;
+import utils.Auth;
 
 /**
  *
@@ -23,6 +26,8 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
+    UsersDao userdao = new UsersDao();
     public Login() {
         setUndecorated(true);
 
@@ -261,9 +266,10 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUser1ActionPerformed
 
     private void cmdLoginnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginnActionPerformed
-        // TODO add your handling code here:
-        sukien();
-        check();
+        String username = txtUser1.getText();
+        String pass = txtPassword.getText();
+            DangNhap(username, pass);
+//        check();
     }//GEN-LAST:event_cmdLoginnActionPerformed
 
     private void cmdLoginnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmdLoginnMouseExited
@@ -361,51 +367,49 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    public void sukien() {
-        cmdLoginn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String url = "jdbc:sqlserver://PHAN_NGOC_HUU\\SQLEXPRESS:1433;"
-                            + "databaseName = DUAN1new;"
-                            + "encrypt = false;";
-                    Connection conn = DriverManager.getConnection(url, "sa", "123");
-                    PreparedStatement ps1 = conn.prepareStatement("select * from heThong where username=? and password =?");
-                    //truyền tham số
-                    ps1.setString(1, txtUser1.getText());
-                    ps1.setString(2, txtPassword.getText());
-                    ResultSet rs = ps1.executeQuery();
+    public String  DangNhap(String TK, String MK) {
+        String TB = "KhachHang";
+        try {
 
-                    //nếu đúng username và password
-                    if (rs.next() == true) {
-                        //duyệt role
-                        if (rs.getString("role").equalsIgnoreCase("0")) {
-
-                            JOptionPane.showMessageDialog(null, "Đăng Nhập Thành Công");
-                            dispose();
-                            NhanVien nv = new NhanVien();
-
-                            nv.setVisible(true);
-
-                        } else {
-
-                            JOptionPane.showMessageDialog(null, "Đăng Nhập Thành Công");
-                            dispose();
-                            QuanLy ql = new QuanLy(null, true);
-                            ql.setTenTaiKhoan(txtUser1.getText());
-
-                            ql.setVisible(true);
-
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Đăng Nhập Thất Bại");
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+//             MK = "123";
+            Users hethong = userdao.seleteById(TK);
+            if (hethong == null) {
+            	 MsgBox.alert(this, "Tài Khoản Mật Khẩu Không Chính Xác");
+                TB= "Error";
+                System.out.println(TB);
+                return TB;
+            } else if (!MK.equalsIgnoreCase(hethong.getPassword())) {
+            	 MsgBox.alert(this, "Tài Khoản Mật Khẩu Không Chính Xác");
+                 TB= "Error";
+                 System.out.println(TB);
+                 return TB;
+            } else {
+                Auth.user = hethong;
+                if (hethong.getUsername().equalsIgnoreCase("Admin")) {
+                    MsgBox.alert(this, "Ä�Äƒng Nháº­p ThÃ nh CÃ´ng \nBáº¡n Ä�ang Truy Cáº­p Vá»›i Quyá»�n Admin");
+                    TB= "successAdmin";
+                    System.out.println(TB);
+                    return TB;
+                } else if (hethong.isRole()) {
+                    MsgBox.alert(this, "Ä�Äƒng Nháº­p ThÃ nh CÃ´ng \nBáº¡n Ä�ang Truy Cáº­p Vá»›i Quyá»�n NhÃ¢n ViÃªn");
+                    TB= "successNhanVien";
+                    System.out.println(TB);
+                    return TB;
+                } else {
+                    MsgBox.alert(this, "Ä�Äƒng Nháº­p ThÃ nh CÃ´ng \nBáº¡n Ä�ang Truy Cáº­p Vá»›i Quyá»�n KhÃ¡ch HÃ ng");
+                    TB= "successKhachHang";
+                    System.out.println(TB);
+                    
+                    
                 }
             }
-        });
 
+        } catch (Exception e) {
+            MsgBox.alert(this, "PhiÃªn Báº£n KhÃ´ng TÃ­ch Há»£p");
+            System.out.println(e);
+        }
+        return TB;
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
